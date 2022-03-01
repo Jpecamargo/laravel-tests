@@ -1,0 +1,11 @@
+nav{
+    margin-bottom: 20px;
+}
+
+.card-body{
+    height: 80%;
+}
+
+.card .game-tag{
+    height: 20%;
+}
