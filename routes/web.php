@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('layout');
+})->name('index');
+
+Route::get('/jogos','App\Http\Controllers\GamesController@create') -> name('games');
+Route::post('/jogos','App\Http\Controllers\GamesController@store') -> name('create_game');
