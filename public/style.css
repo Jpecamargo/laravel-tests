@@ -2,6 +2,17 @@ nav{
     margin-bottom: 20px;
 }
 
+table td{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 200px;
+}
+
+form div.row{
+    margin-bottom: 20px;
+}
+
 .alert p{
     margin-bottom: 0;
     margin-top: 0;

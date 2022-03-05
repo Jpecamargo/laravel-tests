@@ -9,7 +9,7 @@ class GamesController extends Controller
 {
     public function index(){
         $games = Game::all();
-        return view('index', compact('games','games')); //Isso tem que ficar no controller do Games Console e na view tem que ser o nome do blade que carrega os jogos
+        return view('games/index', compact('games','games'));
     }
     public function create()
     {

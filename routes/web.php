@@ -21,6 +21,7 @@ Route::group([
     'prefix' => '/jogos',
     'as' => 'games.'
 ],function (){
-    Route::get('/','App\Http\Controllers\GamesController@index') -> name('create');//mudar para @create
-    Route::post('/','App\Http\Controllers\GamesController@store') -> name('store');
+    Route::get('/','App\Http\Controllers\GamesController@index') -> name('index');
+    Route::get('/cadastro','App\Http\Controllers\GamesController@create') -> name('create');
+    Route::post('/cadastro','App\Http\Controllers\GamesController@store') -> name('store');
 });
