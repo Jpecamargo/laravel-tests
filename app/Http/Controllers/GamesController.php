@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Game;
 
 class GamesController extends Controller
 {
@@ -12,13 +13,18 @@ class GamesController extends Controller
     }
 
     public function store(Request $request){
-        $validated = validate([
-            'name' => $request -> name,
-            'description' => $request -> description
+        $request -> validate([
+           'name' => 'required',
+           'description' => 'required',
         ]);
 
-        Game::create([
-            'name' => $validate->name;
-        ])
+        $game = new Game([
+           'name' => $request->name,
+           'description' => $request->description,
+           'gender' => $request->gender??null
+        ]);
+        $game->save();
+
+        return redirect('/jogos') -> with('success','Jogo cadastrado com sucesso');
     }
 }
