@@ -14,8 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layout');
+    return view('index');
 })->name('index');
 
-Route::get('/jogos','App\Http\Controllers\GamesController@create') -> name('games');
-Route::post('/jogos','App\Http\Controllers\GamesController@store') -> name('create_game');
+Route::group([
+    'prefix' => '/jogos',
+    'as' => 'games.'
+],function (){
+    Route::get('/','App\Http\Controllers\GamesController@index') -> name('create');//mudar para @create
+    Route::post('/','App\Http\Controllers\GamesController@store') -> name('store');
+});

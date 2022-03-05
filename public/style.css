@@ -2,6 +2,11 @@ nav{
     margin-bottom: 20px;
 }
 
+.alert p{
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
 .card-body{
     height: 80%;
 }
