@@ -12,16 +12,16 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route ('games.update', [ 'id' =>$game->id]) }}" method="POST">
+    <form action="{{ route ('games.update', ['id'=>$game->id]) }}" method="POST">
         @csrf
         @method('PATCH')
         <div class="mb-3">
             <label for="" class="form-label">Nome</label>
-            <input type="text" class="form-control" name="name" autocomplete="off" required>
+            <input type="text" class="form-control" name="name" autocomplete="off" value="{{ $game->name }}" required>
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Descrição</label>
-            <textarea class="form-control" rows="3" name="description" id="desc" maxlength="255" required></textarea>
+            <textarea class="form-control" rows="3" name="description" id="desc" maxlength="255" required>{{ $game->description }}</textarea>
         </div>
         <button class="btn btn-outline-primary">Salvar</button>
     </form>

@@ -32,8 +32,14 @@ class GamesController extends Controller
         return redirect('/jogos') -> with('success','Jogo cadastrado com sucesso');
     }
 
-    public function edit(Game $game){
-        return view('games/edit',compact('game'));
+//  public function edit(Game $game){
+//      return view('games/edit',compact('game'));
+//  }
+//Não funciona
+
+    public function edit($id){
+        $game = Game::find($id);
+        return view('games.edit')->with('game',$game);
     }
 
     public function update(Request $request, $id){
@@ -54,4 +60,5 @@ class GamesController extends Controller
         $game->delete();
         return redirect('/jogos') -> with('success','Jogo excluído com sucesso');
     }
+
 }

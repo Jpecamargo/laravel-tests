@@ -1,12 +1,12 @@
 @extends('layout')
 
 @section('content')
-    <h2 class="display-6">Lista de jogos</h2>
     @if ($message = Session::GET('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
     @endif
+    <h2 class="display-6">Lista de jogos</h2>
     <form action="">
         <div class="row">
             <div class="form-group col-9">
