@@ -11,6 +11,15 @@ class GamesController extends Controller
         $games = Game::all();
         return view('games/index', compact('games','games'));
     }
+
+    public function search(Request $request){
+        $search = $request->input('search');
+
+        $games = Game::query()->where('name','like',"%{$search}%")->get();
+
+        return view('games/index',compact('games'));
+    }
+
     public function create()
     {
         return view ('games/create');
@@ -56,9 +65,15 @@ class GamesController extends Controller
         return redirect('/jogos') -> with('success','Jogo atualizado com sucesso');
     }
 
-    public function destroy(Game $game){
-        $game->delete();
+    public function destroy($id){
+        Game::where('id',$id)->delete();
         return redirect('/jogos') -> with('success','Jogo excluído com sucesso');
     }
+
+//    public function destroy(Game $game){
+//        $game->delete();
+//        return redirect('/jogos') -> with('success','Jogo excluído com sucesso');
+//    }
+//Perguntar ao Luan pq dessa forma não funcionou
 
 }

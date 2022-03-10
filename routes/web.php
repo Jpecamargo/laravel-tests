@@ -28,9 +28,10 @@ Route::group([
     'as' => 'games.'
 ],function (){
     Route::get('/','App\Http\Controllers\GamesController@index') -> name('index');
+    Route::get('/search','App\Http\Controllers\GamesController@search') -> name('search');
     Route::get('/cadastro','App\Http\Controllers\GamesController@create') -> name('create');
     Route::post('/cadastro','App\Http\Controllers\GamesController@store') -> name('store');
     Route::get('/editar/{id}','App\Http\Controllers\GamesController@edit') -> name('edit');
     Route::patch('/editar/{id}','App\Http\Controllers\GamesController@update') -> name('update');
-    Route::delete('/','App\Http\Controllers\GamesController@destroy') -> name('destroy');
+    Route::delete('/{id}','App\Http\Controllers\GamesController@destroy') -> name('destroy');
 });

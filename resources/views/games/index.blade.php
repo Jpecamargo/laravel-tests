@@ -7,7 +7,8 @@
         </div>
     @endif
     <h2 class="display-6">Lista de jogos</h2>
-    <form action="">
+    <form action="{{ route('games.search') }}" method="GET">
+        @csrf
         <div class="row">
             <div class="form-group col-9">
                 <input type="text" class="form-control" name="search" id="search" placeholder="Nome do jogo">
