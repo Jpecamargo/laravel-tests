@@ -9,4 +9,8 @@ class Console extends Model
 {
     use HasFactory;
     protected $fillable = ['name'];
+
+    public function games(){
+        return $this->belongsToMany(Game::class);
+    }
 }

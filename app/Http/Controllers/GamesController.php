@@ -76,4 +76,8 @@ class GamesController extends Controller
 //    }
 //Perguntar ao Luan pq dessa forma não funcionou
 
+//Testar: 
+//$game = Game::Find($id);
+//$game->delete();
+
 }

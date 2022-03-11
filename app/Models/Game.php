@@ -9,4 +9,8 @@ class Game extends Model
 {
     use HasFactory;
     protected $fillable = ['name','description','gender'];
+
+    public function consoles(){
+        return $this->belongsToMany(Console::class);
+    }
 }
