@@ -12,6 +12,12 @@ class ConsolesController extends Controller
         return view('consoles/index', compact('consoles','consoles'));
     }
 
+    public function search(Request $request){
+        $search = $request -> input('search');
+        $consoles = Console::query()->where('name','like',"%{$search}%")->get();
+        return view('consoles/index', compact('consoles'));
+    }
+
     public function create(){
         return view('consoles/create');
     }
@@ -26,12 +32,12 @@ class ConsolesController extends Controller
         ]);
         $console->save();
 
-        return redirect() -> route('console.index') -> with('succes','Console cadastrado com sucesso');
+        return redirect() -> route('consoles.index') -> with('succes','Console cadastrado com sucesso');
     }
 
     public function edit($id){
         $console = Console::find($id);
-        return view('console.edit') -> with('console', $console);
+        return view('consoles.edit') -> with('console', $console);
     }
 
     public function update(Request $request, $id){
@@ -43,11 +49,11 @@ class ConsolesController extends Controller
         $console -> name = $request->get('name');
         $console -> update();
 
-        return redirect() -> route('console.index') -> with('success', 'Console atualizado com sucesso');
+        return redirect() -> route('consoles.index') -> with('success', 'Console atualizado com sucesso');
     }
 
     public function destroy($id){
         Console::where('id',$id)->delete();
-        return redirect() -> route('console.index') -> with('success', 'Console apagado com sucesso');
+        return redirect() -> route('consoles.index') -> with('success', 'Console apagado com sucesso');
     }
 }

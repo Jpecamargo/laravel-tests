@@ -9,7 +9,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="{{ route('index') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('games.index') }}">Jogos</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Consoles</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('consoles.index') }}">Consoles</a></li>
             </ul>
         </div>
     </div>

@@ -38,7 +38,13 @@ Route::group([
 
 Route::group([
     'prefix' => '/console',
-    'as' => 'console.'
+    'as' => 'consoles.'
 ], function(){
-    //
+    Route::get('/', 'App\Http\Controllers\ConsolesController@index') -> name('index');
+    Route::get('/search', 'App\Http\Controllers\ConsolesController@search') -> name('search');
+    Route::get('/cadastro', 'App\Http\Controllers\ConsolesController@create') -> name('create');
+    Route::post('/cadastro', 'App\Http\Controllers\ConsolesController@store') -> name('store');
+    Route::get('/editar/{id}', 'App\Http\Controllers\ConsolesController@edit') -> name('edit');
+    Route::patch('/editar/{id}', 'App\Http\Controllers\ConsolesController@update') -> name('update');
+    Route::delete('/{id}', 'App\Http\Controllers\ConsolesController@destroy') -> name('destroy');
 });
