@@ -35,3 +35,10 @@ Route::group([
     Route::patch('/editar/{id}','App\Http\Controllers\GamesController@update') -> name('update');
     Route::delete('/{id}','App\Http\Controllers\GamesController@destroy') -> name('destroy');
 });
+
+Route::group([
+    'prefix' => '/console',
+    'as' => 'console.'
+], function(){
+    //
+});

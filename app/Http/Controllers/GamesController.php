@@ -38,7 +38,7 @@ class GamesController extends Controller
         ]);
         $game->save();
 
-        return redirect('/jogos') -> with('success','Jogo cadastrado com sucesso');
+        return redirect() -> route('games.index') -> with('success','Jogo cadastrado com sucesso');
     }
 
 //  public function edit(Game $game){
@@ -62,12 +62,12 @@ class GamesController extends Controller
         $game->description = $request->get('description');
 
         $game->update();
-        return redirect('/jogos') -> with('success','Jogo atualizado com sucesso');
+        return redirect() -> route('games.index') -> with('success','Jogo atualizado com sucesso');
     }
 
     public function destroy($id){
         Game::where('id',$id)->delete();
-        return redirect('/jogos') -> with('success','Jogo excluído com sucesso');
+        return redirect() -> route('games.index') -> with('success','Jogo excluído com sucesso');
     }
 
 //    public function destroy(Game $game){
