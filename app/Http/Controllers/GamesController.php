@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Game;
+use App\Models\Console;
 
 class GamesController extends Controller
 {
@@ -22,7 +23,8 @@ class GamesController extends Controller
 
     public function create()
     {
-        return view ('games/create');
+        $consoles = Console::all();
+        return view ('games/create',compact('consoles','consoles'));
     }
 
     public function store(Request $request){
@@ -37,6 +39,8 @@ class GamesController extends Controller
            'gender' => $request->gender??null
         ]);
         $game->save();
+
+        $game->consoles()->sync($request->console);
 
         return redirect() -> route('games.index') -> with('success','Jogo cadastrado com sucesso');
     }
@@ -76,7 +80,7 @@ class GamesController extends Controller
 //    }
 //Perguntar ao Luan pq dessa forma não funcionou
 
-//Testar: 
+//Testar:
 //$game = Game::Find($id);
 //$game->delete();
 

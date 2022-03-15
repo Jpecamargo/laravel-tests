@@ -10,6 +10,12 @@
             <input type="text" class="form-control" name="name" autocomplete="off" required>
         </div>
         <div class="mb-3">
+            @foreach($consoles as $console)
+                <input type="checkbox" class="btn-check" id="{{ $console->id }}" value="{{ $console->id }}" name="console[]" autocomplete="off">
+                <label class="btn btn-outline-primary" for="{{ $console->id }}">{{ $console->name }}</label>
+            @endforeach
+        </div>
+        <div class="mb-3">
             <label for="" class="form-label">Descrição</label>
             <textarea class="form-control" rows="3" name="description" id="desc" maxlength="255" required></textarea>
         </div>

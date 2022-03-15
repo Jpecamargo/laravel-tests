@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('games_id')->references('id')->on('games');
             $table->foreign('consoles_id')->references('id')->on('consoles');
         });
+
     }
 
     /**
