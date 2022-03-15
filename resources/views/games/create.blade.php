@@ -12,7 +12,7 @@
         <div class="mb-3">
             @foreach($consoles as $console)
                 <input type="checkbox" class="btn-check" id="{{ $console->id }}" value="{{ $console->id }}" name="console[]" autocomplete="off">
-                <label class="btn btn-outline-primary" for="{{ $console->id }}">{{ $console->name }}</label>
+                <label class="btn btn-outline-primary btn-sm" for="{{ $console->id }}">{{ $console->name }}</label>
             @endforeach
         </div>
         <div class="mb-3">

@@ -23,7 +23,7 @@ class GamesController extends Controller
 
     public function create()
     {
-        $consoles = Console::all();
+        $consoles = Console::All()->sortBy('name');
         return view ('games/create',compact('consoles','consoles'));
     }
 
@@ -52,7 +52,12 @@ class GamesController extends Controller
 
     public function edit($id){
         $game = Game::find($id);
-        return view('games.edit')->with('game',$game);
+        $consoles = Console::all()->sortBy('name');
+        $games = Game::get();
+        $relations = $games->map(function($games){
+            return collect($games->toArray())->only(['id','name']);
+        });
+        return view('games.edit',compact('game','consoles','relations'));
     }
 
     public function update(Request $request, $id){
@@ -70,7 +75,9 @@ class GamesController extends Controller
     }
 
     public function destroy($id){
-        Game::where('id',$id)->delete();
+        $game = Game::find($id);
+        $game -> consoles() -> detach();
+        $game -> delete();
         return redirect() -> route('games.index') -> with('success','Jogo excluído com sucesso');
     }
 
@@ -79,9 +86,4 @@ class GamesController extends Controller
 //        return redirect('/jogos') -> with('success','Jogo excluído com sucesso');
 //    }
 //Perguntar ao Luan pq dessa forma não funcionou
-
-//Testar:
-//$game = Game::Find($id);
-//$game->delete();
-
 }
