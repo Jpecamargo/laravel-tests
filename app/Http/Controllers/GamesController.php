@@ -54,9 +54,7 @@ class GamesController extends Controller
         $game = Game::find($id);
         $consoles = Console::all()->sortBy('name');
         $games = Game::get();
-        $relations = $games->map(function($games){
-            return collect($games->toArray())->only(['id','name']);
-        });
+        $relations = $game->consoles()->pluck('console_id')->toArray();
         return view('games.edit',compact('game','consoles','relations'));
     }
 
@@ -71,6 +69,8 @@ class GamesController extends Controller
         $game->description = $request->get('description');
 
         $game->update();
+        $game->consoles()->sync($request->console);
+        
         return redirect() -> route('games.index') -> with('success','Jogo atualizado com sucesso');
     }
 

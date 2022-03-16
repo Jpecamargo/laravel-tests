@@ -20,9 +20,8 @@
             <input type="text" class="form-control" name="name" autocomplete="off" value="{{ $game->name }}" required>
         </div>
         <div class="mb-3">
-            {{ var_dump($relations) }}
             @foreach($consoles as $console)
-                @if(in_array($console,$relations))
+                @if(in_array($console->id,$relations))
                     <input type="checkbox" class="btn-check" id="{{ $console->id }}" value="{{ $console->id }}" name="console[]" autocomplete="off" checked>
                     <label class="btn btn-outline-primary btn-sm" for="{{ $console->id }}">{{ $console->name }}</label>
                 @else
