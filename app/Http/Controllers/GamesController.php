@@ -31,16 +31,20 @@ class GamesController extends Controller
         $request -> validate([
            'name' => 'required',
            'description' => 'required',
+           'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
 
-        $game = new Game([
-           'name' => $request->name,
-           'description' => $request->description,
-           'gender' => $request->gender??null
-        ]);
-        $game->save();
+        $game = $request->all();
 
-        $game->consoles()->sync($request->console);
+        if($image = $request->file('image')){
+            $destinationPath = 'image/';
+            $profileImage = date('YmdHis') . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath,$profileImage);
+            $game['image'] = "$profileImage";
+        };
+
+        Game::create($game);
+        //Game::consoles()->sync($request->console);
 
         return redirect() -> route('games.index') -> with('success','Jogo cadastrado com sucesso');
     }
@@ -70,7 +74,7 @@ class GamesController extends Controller
 
         $game->update();
         $game->consoles()->sync($request->console);
-        
+
         return redirect() -> route('games.index') -> with('success','Jogo atualizado com sucesso');
     }
 

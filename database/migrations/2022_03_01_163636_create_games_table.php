@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->enum('gender',['Ação', 'Aventura', 'Casual', 'Puzzle', 'Estratégia', 'Outros']);
+            $table->string('image');
             $table->timestamps();
         });
     }
