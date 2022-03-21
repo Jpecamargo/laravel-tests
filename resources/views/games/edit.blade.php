@@ -15,9 +15,15 @@
     <form action="{{ route ('games.update', ['id'=>$game->id]) }}" method="POST">
         @csrf
         @method('PATCH')
-        <div class="mb-3">
-            <label for="" class="form-label">Nome</label>
-            <input type="text" class="form-control" name="name" autocomplete="off" value="{{ $game->name }}" required>
+        <div class="row">
+            <div class="col-7">
+                <label for="" class="form-label">Nome</label>
+                <input type="text" class="form-control" name="name" autocomplete="off" value="{{ $game->name }}" required>
+            </div>
+            <div class="col-5">
+                <label for="formFile" class="form-label">Imagem do jogo</label>
+                <input class="form-control" name="image" type="file" id="file">
+            </div>
         </div>
         <div class="mb-3">
             @foreach($consoles as $console)

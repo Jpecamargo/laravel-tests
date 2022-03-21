@@ -10,7 +10,7 @@ class GamesController extends Controller
 {
     public function index(){
         $games = Game::all();
-        return view('games/index', compact('games','games'));
+        return view('games/index', compact('games'));
     }
 
     public function search(Request $request){
@@ -24,7 +24,7 @@ class GamesController extends Controller
     public function create()
     {
         $consoles = Console::All()->sortBy('name');
-        return view ('games/create',compact('consoles','consoles'));
+        return view ('games/create',compact('consoles'));
     }
 
     public function store(Request $request){
@@ -34,17 +34,21 @@ class GamesController extends Controller
            'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
 
-        $game = $request->all();
+        $game = new Game([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $request->image
+        ]);
 
         if($image = $request->file('image')){
             $destinationPath = 'image/';
             $profileImage = date('YmdHis') . '.' . $image->getClientOriginalExtension();
             $image->move($destinationPath,$profileImage);
             $game['image'] = "$profileImage";
-        };
+        }
 
-        Game::create($game);
-        //Game::consoles()->sync($request->console);
+        $game->save();
+        $game->consoles()->attach($request->console);        
 
         return redirect() -> route('games.index') -> with('success','Jogo cadastrado com sucesso');
     }
@@ -57,7 +61,6 @@ class GamesController extends Controller
     public function edit($id){
         $game = Game::find($id);
         $consoles = Console::all()->sortBy('name');
-        $games = Game::get();
         $relations = $game->consoles()->pluck('console_id')->toArray();
         return view('games.edit',compact('game','consoles','relations'));
     }
@@ -65,12 +68,20 @@ class GamesController extends Controller
     public function update(Request $request, $id){
         $request -> validate([
             'name'=>'required',
-            'description'=>'required'
+            'description'=>'required',
         ]);
 
         $game = Game::find($id);
-        $game->name = $request->get('name');
-        $game->description = $request->get('description');
+        $game->name = $request->name;
+        $game->description = $request->description;
+        $game->image = $request->image;
+
+        if($image = $request->file('image')){
+            $destinationPath = 'image/';
+            $profileImage = date('YmdHis') . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath,$profileImage);
+            $game->image = "$profileImage";
+        }
 
         $game->update();
         $game->consoles()->sync($request->console);
@@ -80,6 +91,7 @@ class GamesController extends Controller
 
     public function destroy($id){
         $game = Game::find($id);
+        unlink('image/'.$game->image);
         $game -> consoles() -> detach();
         $game -> delete();
         return redirect() -> route('games.index') -> with('success','Jogo excluído com sucesso');
