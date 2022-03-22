@@ -37,15 +37,8 @@ class GamesController extends Controller
         $game = new Game([
             'name' => $request->name,
             'description' => $request->description,
-            'image' => $request->image
+            'image' => $this->saveImage($request->file('image'))
         ]);
-
-        if($image = $request->file('image')){
-            $destinationPath = 'image/';
-            $profileImage = date('YmdHis') . '.' . $image->getClientOriginalExtension();
-            $image->move($destinationPath,$profileImage);
-            $game['image'] = "$profileImage";
-        }
 
         $game->save();
         $game->consoles()->attach($request->console);        
@@ -74,14 +67,15 @@ class GamesController extends Controller
         $game = Game::find($id);
         $game->name = $request->name;
         $game->description = $request->description;
-        $game->image = $request->image;
 
-        if($image = $request->file('image')){
-            $destinationPath = 'image/';
-            $profileImage = date('YmdHis') . '.' . $image->getClientOriginalExtension();
-            $image->move($destinationPath,$profileImage);
-            $game->image = "$profileImage";
+        if(is_null($request->image)){
+            $game->image;
+        } else {
+            unlink('image/'.$game->image);
+            $game->image = $this->saveImage($request->file('image'));
         }
+
+       // $game->image = is_null($request->image) ? $game->image : (unlink('image/'.$game->image) AND $this->saveImage($request->file('image')));
 
         $game->update();
         $game->consoles()->sync($request->console);
@@ -95,6 +89,13 @@ class GamesController extends Controller
         $game -> consoles() -> detach();
         $game -> delete();
         return redirect() -> route('games.index') -> with('success','Jogo excluído com sucesso');
+    }
+
+    public function saveImage($originalImage){
+        $destinationPath = 'image/';
+        $profileImage = date('YmdHis') . '.' . $originalImage -> getClientOriginalExtension();
+        $originalImage->move($destinationPath,$profileImage);
+        return "$profileImage";
     }
 
 //    public function destroy(Game $game){
