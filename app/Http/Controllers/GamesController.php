@@ -8,6 +8,11 @@ use App\Models\Console;
 
 class GamesController extends Controller
 {
+    public function home(){
+        $games = Game::latest()->paginate(15);
+        return view('index',compact('games'));
+    }
+
     public function index(){
         $games = Game::all();
         return view('games/index', compact('games'));

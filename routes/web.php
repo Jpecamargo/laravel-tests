@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/','App\Http\Controllers\GamesController@home') -> name('index');
 
 //Route::resource('games',GamesController::class);
 //Perguntar para Luan vantagens e desvantagens entre resource e definir as rotas explicitamente
