@@ -51,11 +51,6 @@ class GamesController extends Controller
         return redirect() -> route('games.index') -> with('success','Jogo cadastrado com sucesso');
     }
 
-//  public function edit(Game $game){
-//      return view('games/edit',compact('game'));
-//  }
-//Não funciona
-
     public function edit($id){
         $game = Game::find($id);
         $consoles = Console::all()->sortBy('name');
@@ -80,7 +75,8 @@ class GamesController extends Controller
             $game->image = $this->saveImage($request->file('image'));
         }
 
-       // $game->image = is_null($request->image) ? $game->image : (unlink('image/'.$game->image) AND $this->saveImage($request->file('image')));
+        // Exemplo ternário
+        // $game->image = is_null($request->image) ? $game->image : (unlink('image/'.$game->image) AND $this->saveImage($request->file('image')));
 
         $game->update();
         $game->consoles()->sync($request->console);
@@ -102,10 +98,4 @@ class GamesController extends Controller
         $originalImage->move($destinationPath,$profileImage);
         return "$profileImage";
     }
-
-//    public function destroy(Game $game){
-//        $game->delete();
-//        return redirect('/jogos') -> with('success','Jogo excluído com sucesso');
-//    }
-//Perguntar ao Luan pq dessa forma não funcionou
 }

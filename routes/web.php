@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','App\Http\Controllers\GamesController@home') -> name('index');
 
-//Route::resource('games',GamesController::class);
-//Perguntar para Luan vantagens e desvantagens entre resource e definir as rotas explicitamente
-
 Route::group([
     'prefix' => '/jogos',
     'as' => 'games.'

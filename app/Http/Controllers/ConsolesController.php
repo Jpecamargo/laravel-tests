@@ -44,18 +44,22 @@ class ConsolesController extends Controller
 
     public function update(Request $request, $id){
         $request -> validate([
-            'name' => 'required'
+            'name' => 'required',
+            'color' => 'required'
         ]);
 
         $console = Console::find($id);
-        $console -> name = $request->get('name');
+        $console -> name = $request->name;
+        $console -> color = $request->color;
         $console -> update();
 
         return redirect() -> route('consoles.index') -> with('success', 'Console atualizado com sucesso');
     }
 
     public function destroy($id){
-        Console::where('id',$id)->delete();
+        $console = Console::find($id);
+        $console -> games() -> detach();
+        $console -> delete();
         return redirect() -> route('consoles.index') -> with('success', 'Console apagado com sucesso');
     }
 }
