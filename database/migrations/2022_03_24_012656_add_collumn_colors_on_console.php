@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('consoles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('consoles',function(Blueprint $table){
+            $table->string('color');
         });
     }
 
@@ -27,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('consoles');
+        Schema::table('consoles',function(Blueprint $table){
+            $table->dropColumn('color');
+        });
     }
 };

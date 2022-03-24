@@ -24,11 +24,13 @@ class ConsolesController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'color'=> 'required'
         ]);
 
         $console = new Console([
-            'name' => $request->name
+            'name' => $request->name,
+            'color'=> $request->color
         ]);
         $console->save();
 

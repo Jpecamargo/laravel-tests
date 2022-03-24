@@ -14,7 +14,7 @@
                     </div>
                     <div class="game-tag p-3">
                         @foreach($game->consoles as $console)
-                        <span class="badge rounded-pill bg-info">{{ $console->name }}</span>
+                        <span class="badge rounded-pill bg-{{ $console->color }}">{{ $console->name }}</span>
                         @endforeach
                     </div>
                 </div>
